@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rishit - Unique Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A0A1A;
+            --bg-secondary: #1A1A30;
+            --text-primary: #E0E0E0;
+            --text-secondary: #A0A0B0;
+            --border-color: #303045;
+            --gradient-start: #34D399;
+            --gradient-end: #FBBF24;
+            --accent-color: #FBBF24;
+            --accent-hover: #D97706;
+            --icon-color: #34D399;
+            --card-shadow-rgb: 0, 0, 0;
+            --gradient-start-light: #6366F1;
+            --gradient-end-light: #A855F7;
+        }
+        body.light-mode {
+            --bg-primary: #F9FAFB;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --border-color: #E5E7EB;
+            --gradient-start: var(--gradient-start-light);
+            --gradient-end: var(--gradient-end-light);
+            --accent-color: #6366F1;
+            --accent-hover: #4F46E5;
+            --icon-color: #4F46E5;
+            --card-shadow-rgb: 0, 0, 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+        .text-gradient-unique {
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-unique {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(var(--card-shadow-rgb), 0.2);
+        }
+        .btn-unique:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(var(--card-shadow-rgb), 0.3);
+        }
+        .card-unique {
+            background-color: var(--bg-secondary);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 25px -5px rgba(var(--card-shadow-rgb), 0.15), 0 8px 10px -6px rgba(var(--card-shadow-rgb), 0.08);
+            border: 2px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+        .card-unique:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px -8px rgba(var(--card-shadow-rgb), 0.25), 0 12px 15px -8px rgba(var(--card-shadow-rgb), 0.15);
+            border-color: var(--gradient-start);
+        }
+        .social-icon-unique {
+            color: var(--icon-color);
+            transition: transform 0.2s ease, color 0.3s ease;
+        }
+        .social-icon-unique:hover {
+            transform: scale(1.3);
+            color: var(--accent-color);
+        }
+        .hero-bg-animated {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            animation: gradientShift 15s ease infinite alternate;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .section-divider-unique {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            margin: 0 auto 4rem auto;
+            border-radius: 9999px;
+            box-shadow: 0 0 15px rgba(var(--card-shadow-rgb), 0.3);
+        }
+        body.light-mode .text-gray-200 { color: var(--text-primary); }
+        body.light-mode .text-gray-300 { color: var(--text-secondary); }
+        body.light-mode .text-gray-400 { color: var(--text-secondary); }
+        body.light-mode .text-gray-500 { color: var(--text-secondary); }
+        body.light-mode .bg-gray-700 { background-color: var(--border-color); }
+        body.light-mode .text-gray-300.bg-gray-700 { color: var(--text-primary); }
+        body.light-mode .text-white { color: var(--text-primary); }
+        .theme-toggle-button {
+            background-color: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .theme-toggle-button:hover {
+            color: var(--accent-color);
+        }
+        @keyframes scaleFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .text-reveal-animation {
+            animation: scaleFadeIn 0.8s ease-out forwards;
+        }
+        .tech-link {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+        }
+        .tech-link:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(var(--card-shadow-rgb), 0.2);
+        }
+        body.light-mode .tech-link {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        body.light-mode .tech-link:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        @media (max-width: 640px) {
+            .text-gradient-unique {
+                font-size: 2.25rem;
+            }
+            .btn-unique {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            .social-icon-unique {
+                font-size: 2rem;
+            }
+            .text-5xl {
+                font-size: 2.75rem;
+            }
+            .text-3xl {
+                font-size: 1.75rem;
+            }
+            .text-xl {
+                font-size: 0.9rem;
+            }
+            .card-unique {
+                padding: 1.25rem;
+            }
+            .text-2xl {
+                font-size: 1.25rem;
+            }
+            .text-lg {
+                font-size: 0.9rem;
+            }
+            .section-divider-unique {
+                margin-bottom: 2rem;
+                width: 80px;
+            }
+            .theme-toggle-button {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+            .btn-unique.text-sm {
+                width: calc(100% - 2rem);
+                margin: 0 auto;
+                display: block;
+            }
+            .hero-social-icons {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            .text-gradient-unique {
+                font-size: 1.75rem;
+            }
+            .text-5xl {
+                font-size: 2.25rem;
+            }
+            .text-3xl {
+                font-size: 1.25rem;
+            }
+            .text-xl {
+                font-size: 0.8rem;
+            }
+            .social-icon-unique {
+                font-size: 1.75rem;
+            }
+            .btn-unique {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .card-unique {
+                padding: 0.75rem;
+            }
+            .text-2xl {
+                font-size: 1rem;
+            }
+            .text-lg {
+                font-size: 0.8rem;
+            }
+            .tech-link {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-transparent py-5 fixed w-full z-20 backdrop-blur-md">
+        <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-4xl font-extrabold text-gradient-unique">Rishit</div>
+            <button id="menu-toggle" class="md:hidden text-2xl text-[var(--text-primary)] focus:outline-none z-30">
+                <i id="menu-icon" class="fas fa-bars"></i>
+            </button>
+            <div id="main-menu" class="hidden md:flex md:items-center md:static absolute top-full left-0 w-full md:w-auto bg-[var(--bg-secondary)] md:bg-transparent shadow-lg md:shadow-none mt-2 md:mt-0 rounded-lg md:rounded-none">
+                <ul class="flex flex-col md:flex-row items-center w-full md:w-auto md:space-x-4 lg:space-x-8 py-4 md:py-0">
+                    <li class="w-full md:w-auto text-center py-2 md:py-0"><a href="#about" class="nav-link text-gray-400 hover:text-white transition-colors duration-300 text-lg font-medium">About</a></li>
+                    <li class="w-full md:w-auto text-center py-2 md:py-0"><a href="#skills" class="nav-link text-gray-400 hover:text-white transition-colors duration-300 text-lg font-medium">Skills</a></li>
+                    <li class="w-full md:w-auto text-center py-2 md:py-0"><a href="#work" class="nav-link text-gray-400 hover:text-white transition-colors duration-300 text-lg font-medium">Work</a></li>
+                    <li class="w-full md:w-auto text-center py-3 md:py-0">
+                        <a href="#contact" class="nav-link btn-unique text-base px-10 py-2 sm:px-4 sm:py-2.5">Contact Me</a>
+                    </li>
+                    <li class="w-full md:w-auto text-center py-2 md:py-0">
+                        <button id="theme-toggle" class="theme-toggle-button sm:ml-4 mx-auto" aria-label="Toggle theme">
+                            <i class="fas fa-sun" id="theme-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="hero" class="relative h-screen flex items-center justify-center text-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="hero-bg-animated"></div>
+            <div class="relative z-10 w-full max-w-7xl mx-auto text-left">
+                <h1 class="text-5xl sm:text-7xl lg:text-9xl font-extrabold leading-tight mb-4 sm:mb-6">
+                    Hi, I'm <br class="md:hidden"><span class="text-gradient-unique">Rishit</span>
+                </h1>
+                <p class="text-3xl sm:text-5xl lg:text-6xl font-semibold mb-6 sm:mb-8 text-gray-200">
+                    I build <span id="typed-text" class="text-gradient-unique"></span>
+                </p>
+                <p class="text-lg sm:text-xl text-gray-400 mb-8 sm:mb-12 max-w-xl sm:max-w-2xl">
+                    Crafting innovative digital solutions with a blend of creativity and technical expertise.
+                </p>
+                <div class="flex space-x-6 sm:space-x-8 justify-start hero-social-icons">
+                    <a href="https://github.com/RishitSingh-286" target="_blank" class="social-icon-unique text-4xl sm:text-5xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/rishit-singh-586742361/" target="_blank" class="social-icon-unique text-4xl sm:text-5xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/rishitsingh.10?igsh=MWJtdWVlY3BucmY1ZA==" target="_blank" class="social-icon-unique text-4xl sm:text-5xl" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[var(--bg-primary)] to-[var(--bg-secondary)]">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-4xl sm:text-6xl font-extrabold text-center mb-6 sm:mb-8 text-gradient-unique">About Me</h2>
+                <div class="section-divider-unique"></div>
+                <div class="card-unique p-8 sm:p-12">
+                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed mb-6 sm:mb-8">
+                        Hello! I'm <span class="font-bold text-white">Rishit</span>, a dedicated technologist with a passion for transforming ideas into tangible digital products. I particularly love frontend development, focusing on creating intuitive and visually appealing user experiences. My journey into the world of development was sparked by an insatiable curiosity and a desire to understand the intricate workings behind the applications we use every day. I thrive on challenges and constantly seek opportunities to expand my skill set.
+                    </p>
+                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                        While my passion lies in frontend, I also have strong knowledge and experience in full-stack development, allowing me to build comprehensive solutions from end to end. Beyond coding, I enjoy exploring new advancements in AI, dabbling in graphic design, and spending time outdoors. I believe that effective problem-solving requires both technical prowess and creative thinking. My goal is to build robust, user-centric applications that make a real impact.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="skills" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-primary)]">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-4xl sm:text-6xl font-extrabold text-center mb-6 sm:mb-8 text-gradient-unique">My Expertise</h2>
+                <div class="section-divider-unique"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+                    <div class="card-unique text-center">
+                        <i class="fas fa-laptop-code text-5xl sm:text-6xl text-[var(--icon-color)] mb-6 sm:mb-8"></i>
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Frontend</h3>
+                        <ul class="space-y-2 sm:space-y-3 text-gray-300 text-base sm:text-lg">
+                            <li>HTML5, CSS3 (Tailwind CSS)</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>React.js, Vue.js</li>
+                            <li>Responsive & Accessible Design</li>
+                            <li>Figma</li>
+                        </ul>
+                    </div>
+                    <div class="card-unique text-center">
+                        <i class="fas fa-database text-5xl sm:text-6xl text-[var(--icon-color)] mb-6 sm:mb-8"></i>
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Backend</h3>
+                        <ul class="space-y-2 sm:space-y-3 text-gray-300 text-base sm:text-lg">
+                            <li>Node.js (Express.js)</li>
+                            <li>Python (Flask)</li>
+                            <li>RESTful APIs, GraphQL</li>
+                            <li>SQL (MySQL), NoSQL (MongoDB)</li>
+                        </ul>
+                    </div>
+                    <div class="card-unique text-center">
+                        <i class="fas fa-cogs text-5xl sm:text-6xl text-[var(--icon-color)] mb-6 sm:mb-8"></i>
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Tools & Platforms</h3>
+                        <ul class="space-y-2 sm:space-y-3 text-gray-300 text-base sm:text-lg">
+                            <li>Git & GitHub/GitLab</li>
+                            <li>VS Code, Postman</li>
+                        </ul>
+                    </div>
+                    <div class="card-unique text-center">
+                        <i class="fas fa-cloud-upload-alt text-5xl sm:text-6xl text-[var(--icon-color)] mb-6 sm:mb-8"></i>
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Cloud & DevOps</h3>
+                        <ul class="space-y-2 sm:space-y-3 text-gray-300 text-base sm:text-lg">
+                            <li>AWS (EC2, S3, Lambda)</li>
+                            <li>Google Cloud Platform (GCP)</li>
+                            <li>CI/CD Pipelines (GitHub Actions)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="work" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[var(--bg-primary)] to-[var(--bg-secondary)]">
+            <div class="container mx-auto max-w-7xl">
+                <h2 class="text-4xl sm:text-6xl font-extrabold text-center mb-6 sm:mb-8 text-gradient-unique">My Recent Work</h2>
+                <div class="section-divider-unique"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
+                    <div class="card-unique">
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Weather App</h3>
+                        <p class="text-gray-400 mb-5 sm:mb-6 text-base sm:text-lg">A sleek and intuitive web application that provides real-time weather updates and forecasts based on user location or search query.</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-6">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">HTML</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">CSS</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">JavaScript</a>
+                            <a href="https://openweathermap.org/api" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">OpenWeather API</a>
+                        </div>
+                        <div class="flex justify-start space-x-4 sm:space-x-6">
+                            <a href="https://github.com/RishitSingh-286/Weather-App" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fab fa-github"></i> GitHub Repo
+                            </a>
+                            <a href="https://rishitsingh-286.github.io/Weather-App/" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-unique">
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Currency Converter</h3>
+                        <p class="text-gray-400 mb-5 sm:mb-6 text-base sm:text-lg">A user-friendly tool for converting currencies with up-to-date exchange rates, supporting a wide range of global currencies.</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-6">
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">HTML</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">CSS</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">JavaScript</a>
+                            <a href="https://open.er-api.com/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">ExchangeRate-API</a>
+                        </div>
+                        <div class="flex justify-start space-x-4 sm:space-x-6">
+                            <a href="https://github.com/RishitSingh-286/Currency-Converter" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fab fa-github"></i> GitHub Repo
+                            </a>
+                            <a href="https://rishitsingh-286.github.io/Currency-Converter/" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-unique">
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Interview Prep App</h3>
+                        <p class="text-gray-400 mb-5 sm:mb-6 text-base sm:text-lg">A full-stack application designed to help users prepare for technical interviews with practice questions and mock interviews.</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-6">
+                            <a href="https://react.dev/docs" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">React</a>
+                            <a href="https://nodejs.org/docs/latest/api/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Node.js</a>
+                            <a href="https://expressjs.com/en/4x/api.html" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Express.js</a>
+                            <a href="https://dev.mysql.com/doc/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">MySQL</a>
+                        </div>
+                        <div class="flex justify-start">
+                            <a href="https://github.com/RishitSingh-286/interview-prep-app" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fab fa-github"></i> GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-unique">
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">GitHub Profile Analyzer</h3>
+                        <p class="text-gray-400 mb-5 sm:mb-6 text-base sm:text-lg">An application that analyzes a GitHub user's profile, repositories, and activity to provide insights and visualizations of their contributions.</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-6">
+                            <a href="https://flask.palletsprojects.com/en/latest/quickstart/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Flask</a>
+                            <a href="https://react.dev/docs" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">React</a>
+                            <a href="https://docs.github.com/en/rest" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">GitHub API</a>
+                            <a href="https://docs.python.org/3/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Python</a>
+                        </div>
+                        <div class="flex justify-start">
+                            <a href="https://github.com/RishitSingh-286/github-profile-analyzer" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fab fa-github"></i> GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-unique">
+                        <h3 class="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4 text-white">Password Generator</h3>
+                        <p class="text-gray-400 mb-5 sm:mb-6 text-base sm:text-lg">A secure and customizable password generator web application built with a Flask backend for logic and a React frontend for an interactive user interface.</p>
+                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-5 sm:mb-6">
+                            <a href="https://flask.palletsprojects.com/en/latest/quickstart/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Flask</a>
+                            <a href="https://react.dev/docs" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">React</a>
+                            <a href="https://docs.python.org/3/" target="_blank" class="tech-link text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-full">Python</a>
+                        </div>
+                        <div class="flex justify-start">
+                            <a href="https://github.com/RishitSingh-286/password-generator" target="_blank" class="text-[var(--icon-color)] hover:text-[var(--accent-color)] transition-colors duration-300 font-medium flex items-center gap-1 sm:gap-2 text-base sm:text-lg">
+                                <i class="fab fa-github"></i> GitHub Repo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[var(--bg-secondary)] to-[var(--bg-primary)]">
+            <div class="container mx-auto max-w-3xl text-center">
+                <h2 class="text-4xl sm:text-6xl font-extrabold mb-6 sm:mb-8 text-gradient-unique">Let's Connect</h2>
+                <div class="section-divider-unique"></div>
+                <p class="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12">
+                    I'm always eager to discuss new ideas, collaborate on exciting projects, or simply share insights about technology. Feel free to reach out!
+                </p>
+                <a href="mailto:singhrishit471@gmail.com" class="btn-unique text-lg sm:text-2xl inline-block px-8 py-4 sm:px-10 sm:py-5">
+                    Send Me an Email
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-[var(--bg-primary)] py-8 sm:py-12 text-center text-gray-500">
+        <div class="container mx-auto px-4">
+            <p class="text-base sm:text-lg">&copy; 2024 Rishit. All rights reserved.</p>
+            <div class="flex justify-center space-x-8 sm:space-x-10 mt-6 sm:mt-8">
+                <a href="https://github.com/RishitSingh-286" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="GitHub"><i class="fab fa-github text-3xl sm:text-4xl"></i></a>
+                <a href="https://linkedin.com/in/rishit-singh-586742361/" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-3xl sm:text-4xl"></i></a>
+                <a href="https://www.instagram.com/rishitsingh.10?igsh=MWJtdWVlY3BucmY1ZA==" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300" aria-label="Instagram"><i class="fab fa-instagram text-3xl sm:text-4xl"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="index.js" defer></script>
+</body>
+</html>
